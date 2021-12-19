@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="songshizhao-blog" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="songshizhao-blog" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="songshizhao-blog">
+      <s:element name="UploadPhoto">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="filebytes" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadPhotoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadPhotoResult" type="tns:ResponseResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ResponseResult">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="IsSuccess" type="s:boolean" />
+          <s:element minOccurs="0" maxOccurs="1" name="MsgAlert" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="UrlNav" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RegistUser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="email" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="emailcode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RegistUserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RegistUserResult" type="tns:ResponseResult" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateSitemap">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PassWord" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GenerateSitemapResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GenerateSitemapResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfoByUsername_public">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetUserInfoByUsername_publicResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetUserInfoByUsername_publicResult" type="tns:UserInfo" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="UserInfo">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ID" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="QQUser" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Nickname" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Email" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Photo" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="Validate" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="IsVip" type="s:boolean" />
+          <s:element minOccurs="1" maxOccurs="1" name="Level" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="ResponseResult" nillable="true" type="tns:ResponseResult" />
+      <s:element name="string" nillable="true" type="s:string" />
+      <s:element name="UserInfo" nillable="true" type="tns:UserInfo" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="UploadPhotoSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadPhoto" />
+  </wsdl:message>
+  <wsdl:message name="UploadPhotoSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadPhotoResponse" />
+  </wsdl:message>
+  <wsdl:message name="RegistUserSoapIn">
+    <wsdl:part name="parameters" element="tns:RegistUser" />
+  </wsdl:message>
+  <wsdl:message name="RegistUserSoapOut">
+    <wsdl:part name="parameters" element="tns:RegistUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="GenerateSitemapSoapIn">
+    <wsdl:part name="parameters" element="tns:GenerateSitemap" />
+  </wsdl:message>
+  <wsdl:message name="GenerateSitemapSoapOut">
+    <wsdl:part name="parameters" element="tns:GenerateSitemapResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByUsername_publicSoapIn">
+    <wsdl:part name="parameters" element="tns:GetUserInfoByUsername_public" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByUsername_publicSoapOut">
+    <wsdl:part name="parameters" element="tns:GetUserInfoByUsername_publicResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadPhotoHttpGetIn">
+    <wsdl:part name="filebytes" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadPhotoHttpGetOut">
+    <wsdl:part name="Body" element="tns:ResponseResult" />
+  </wsdl:message>
+  <wsdl:message name="RegistUserHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="email" type="s:string" />
+    <wsdl:part name="emailcode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistUserHttpGetOut">
+    <wsdl:part name="Body" element="tns:ResponseResult" />
+  </wsdl:message>
+  <wsdl:message name="GenerateSitemapHttpGetIn">
+    <wsdl:part name="PassWord" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GenerateSitemapHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByUsername_publicHttpGetIn">
+    <wsdl:part name="username" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByUsername_publicHttpGetOut">
+    <wsdl:part name="Body" element="tns:UserInfo" />
+  </wsdl:message>
+  <wsdl:message name="UploadPhotoHttpPostIn">
+    <wsdl:part name="filebytes" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="UploadPhotoHttpPostOut">
+    <wsdl:part name="Body" element="tns:ResponseResult" />
+  </wsdl:message>
+  <wsdl:message name="RegistUserHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+    <wsdl:part name="password" type="s:string" />
+    <wsdl:part name="email" type="s:string" />
+    <wsdl:part name="emailcode" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="RegistUserHttpPostOut">
+    <wsdl:part name="Body" element="tns:ResponseResult" />
+  </wsdl:message>
+  <wsdl:message name="GenerateSitemapHttpPostIn">
+    <wsdl:part name="PassWord" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GenerateSitemapHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByUsername_publicHttpPostIn">
+    <wsdl:part name="username" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetUserInfoByUsername_publicHttpPostOut">
+    <wsdl:part name="Body" element="tns:UserInfo" />
+  </wsdl:message>
+  <wsdl:portType name="userSoap">
+    <wsdl:operation name="UploadPhoto">
+      <wsdl:input message="tns:UploadPhotoSoapIn" />
+      <wsdl:output message="tns:UploadPhotoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistUser">
+      <wsdl:input message="tns:RegistUserSoapIn" />
+      <wsdl:output message="tns:RegistUserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateSitemap">
+      <wsdl:input message="tns:GenerateSitemapSoapIn" />
+      <wsdl:output message="tns:GenerateSitemapSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUsername_public">
+      <wsdl:input message="tns:GetUserInfoByUsername_publicSoapIn" />
+      <wsdl:output message="tns:GetUserInfoByUsername_publicSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="userHttpGet">
+    <wsdl:operation name="UploadPhoto">
+      <wsdl:input message="tns:UploadPhotoHttpGetIn" />
+      <wsdl:output message="tns:UploadPhotoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistUser">
+      <wsdl:input message="tns:RegistUserHttpGetIn" />
+      <wsdl:output message="tns:RegistUserHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateSitemap">
+      <wsdl:input message="tns:GenerateSitemapHttpGetIn" />
+      <wsdl:output message="tns:GenerateSitemapHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUsername_public">
+      <wsdl:input message="tns:GetUserInfoByUsername_publicHttpGetIn" />
+      <wsdl:output message="tns:GetUserInfoByUsername_publicHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="userHttpPost">
+    <wsdl:operation name="UploadPhoto">
+      <wsdl:input message="tns:UploadPhotoHttpPostIn" />
+      <wsdl:output message="tns:UploadPhotoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RegistUser">
+      <wsdl:input message="tns:RegistUserHttpPostIn" />
+      <wsdl:output message="tns:RegistUserHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GenerateSitemap">
+      <wsdl:input message="tns:GenerateSitemapHttpPostIn" />
+      <wsdl:output message="tns:GenerateSitemapHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUsername_public">
+      <wsdl:input message="tns:GetUserInfoByUsername_publicHttpPostIn" />
+      <wsdl:output message="tns:GetUserInfoByUsername_publicHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="userSoap" type="tns:userSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UploadPhoto">
+      <soap:operation soapAction="songshizhao-blog/UploadPhoto" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistUser">
+      <soap:operation soapAction="songshizhao-blog/RegistUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateSitemap">
+      <soap:operation soapAction="songshizhao-blog/GenerateSitemap" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUsername_public">
+      <soap:operation soapAction="songshizhao-blog/GetUserInfoByUsername_public" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="userSoap12" type="tns:userSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UploadPhoto">
+      <soap12:operation soapAction="songshizhao-blog/UploadPhoto" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistUser">
+      <soap12:operation soapAction="songshizhao-blog/RegistUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateSitemap">
+      <soap12:operation soapAction="songshizhao-blog/GenerateSitemap" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUsername_public">
+      <soap12:operation soapAction="songshizhao-blog/GetUserInfoByUsername_public" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="userHttpGet" type="tns:userHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="UploadPhoto">
+      <http:operation location="/UploadPhoto" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistUser">
+      <http:operation location="/RegistUser" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateSitemap">
+      <http:operation location="/GenerateSitemap" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUsername_public">
+      <http:operation location="/GetUserInfoByUsername_public" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="userHttpPost" type="tns:userHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="UploadPhoto">
+      <http:operation location="/UploadPhoto" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegistUser">
+      <http:operation location="/RegistUser" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GenerateSitemap">
+      <http:operation location="/GenerateSitemap" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserInfoByUsername_public">
+      <http:operation location="/GetUserInfoByUsername_public" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="user">
+    <wsdl:port name="userSoap" binding="tns:userSoap">
+      <soap:address location="https://www.songshizhao.com/user.asmx" />
+    </wsdl:port>
+    <wsdl:port name="userSoap12" binding="tns:userSoap12">
+      <soap12:address location="https://www.songshizhao.com/user.asmx" />
+    </wsdl:port>
+    <wsdl:port name="userHttpGet" binding="tns:userHttpGet">
+      <http:address location="https://www.songshizhao.com/user.asmx" />
+    </wsdl:port>
+    <wsdl:port name="userHttpPost" binding="tns:userHttpPost">
+      <http:address location="https://www.songshizhao.com/user.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

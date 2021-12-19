@@ -1,0 +1,47 @@
+﻿<ContentDialog  x:Class="课程表UWP.Controls.EditDialog" 
+                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:课程表UWP.Controls" 
+                xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                mc:Ignorable="d" Title="详细信息" PrimaryButtonText="确定" SecondaryButtonText="撤销" 
+                PrimaryButtonClick="ContentDialog_PrimaryButtonClick" SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+
+    <StackPanel Name="MainGrid">
+
+
+        <!--输入文本框-->
+        <!--<TextBox Text="课程详细信息" Visibility="Collapsed" />-->
+        <TextBox PreventKeyboardDisplayOnProgrammaticFocus="True" TabIndex="10" HorizontalAlignment="Left" Width="280" x:Name="nameTxt" Header="课程名称" Grid.Row="1" Text="{x:Bind ChangedCourse.Name,Mode=TwoWay}" />
+
+        <TimePicker x:Name="start_time" Header="上课时间" Grid.Row="2" />
+        <TimePicker x:Name="end_time" Header="下课时间" Grid.Row="3" />
+
+        <StackPanel Grid.Row="4" Orientation="Horizontal">
+            <TextBox x:Name="weekTxt" Header="课程周数" Width="140" Text="{x:Bind ChangedCourse.Duration,Mode=TwoWay}" />
+            <ComboBox x:Name="SorD" Header="单双周" Width="140" Margin="20,0,0,0" SelectedIndex="{x:Bind ChangedCourse.Weeklimit,Mode=TwoWay}">
+                <x:String>无</x:String>
+                <x:String>单周</x:String>
+                <x:String>双周</x:String>
+            </ComboBox>
+            <!--<ComboBox x:Name="classType" Header="课程类型" Width="100"  SelectedIndex="{x:Bind ChangedCourse.Type,Mode=TwoWay}">
+                        <x:String>必修</x:String>
+                        <x:String>选修</x:String>
+                        <x:String>旁听</x:String>
+                        <x:String>专业课</x:String>
+                        <x:String>非学分绩</x:String>
+                        <x:String>高学分绩</x:String>
+                    </ComboBox>-->
+        </StackPanel>
+
+        <StackPanel Grid.Row="5" Orientation="Vertical">
+            <TextBox HorizontalAlignment="Left" Width="250" x:Name="roomTxt" Header="课程教室" Text="{x:Bind ChangedCourse.Room,Mode=TwoWay}" Margin="10,5,10,0" />
+            <TextBox HorizontalAlignment="Left" Width="250" x:Name="teacherTxt" Header="课程教师" Text="{x:Bind ChangedCourse.Teacher,Mode=TwoWay}" Grid.Row="6" Margin="10,5,10,12" />
+            <TextBox HorizontalAlignment="Left" Width="250" x:Name="teacherScore" Header="学分" Grid.Row="7" Margin="10,5,10,12" Text="{x:Bind ChangedCourse.Score,Mode=TwoWay}" />
+        </StackPanel >
+
+
+    </StackPanel>
+    <!--<ProgressRing Width="50" Height="50" IsActive="{x:Bind IsBusy,Mode=OneWay}"></ProgressRing>-->
+
+</ContentDialog>

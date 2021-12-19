@@ -1,0 +1,81 @@
+﻿<ContentDialog
+    x:Class="课程表UWP.Controls.UploadDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:课程表UWP.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" Padding="0" Margin="0"
+    mc:Ignorable="d">
+
+    <StackPanel>
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" >
+
+            <Button Tapped="CloseDialog_Tapped" Style="{StaticResource TextBlockButtonStyle}" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0" Padding="0">
+                <Button.Content>
+                    <TextBlock FontSize="28" FontFamily="Segoe MDL2 Assets" Text="&#xEA39;"></TextBlock>
+                </Button.Content>
+            </Button>
+
+           
+        </StackPanel>
+        <!--进度条-->
+ 
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Orientation="Vertical">
+
+            <TextBlock HorizontalAlignment="Center" FontWeight="Light" FontSize="28" Margin="0 0 0 15">上传我的课表</TextBlock>
+
+            <StackPanel Orientation="Horizontal" Margin="0 5">
+                <TextBlock Margin="0 0 10 0">省份:</TextBlock>
+                <TextBlock Text="{x:Bind Location.Province,Mode=OneWay}">***</TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0 5">
+                <TextBlock Margin="0 0 10 0">城市:</TextBlock>
+                <TextBlock Text="{x:Bind Location.City,Mode=OneWay}">***</TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0 5">
+                <TextBlock Margin="0 0 10 0">经度:</TextBlock>
+                <TextBlock Text="{x:Bind Location.Longitude,Mode=OneWay}">***</TextBlock>
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Margin="0 5">
+                <TextBlock Margin="0 0 10 0">纬度:</TextBlock>
+                <TextBlock Text="{x:Bind Location.Latitude,Mode=OneWay}">***</TextBlock>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal" Margin="0 15 0 0">
+                <TextBlock Margin="0 0 10 0">名称:</TextBlock>
+                <TextBox Style="{StaticResource MyTextBoxStyle}"  PlaceholderText="描述当前课表" Text="{x:Bind UploadFIleName,Mode=TwoWay}" Width="220"></TextBox>
+            </StackPanel>
+
+
+
+
+            <Button Style="{StaticResource TextBlockButtonStyle}" HorizontalAlignment="Center" BorderThickness="0" Tapped="Upload_Tapped"  Margin="0 20 0 0">
+                <Button.Content>
+                    <Border Padding="0 3" CornerRadius="10" BorderBrush="#FF8B7C7C" BorderThickness="0" Width="150" Background="DodgerBlue">
+                        <TextBlock HorizontalAlignment="Center" Foreground="White" FontWeight="Light">确认上传</TextBlock>
+                    </Border>
+                </Button.Content>
+            </Button>
+
+
+
+
+        </StackPanel>
+
+        <ProgressRing Name="progressRing" VerticalAlignment="Center"  HorizontalAlignment="Center" 
+                      Width="50" Height="50" IsActive="{x:Bind Isbusy,Mode=TwoWay}"></ProgressRing>
+
+
+        <Grid Name="ReservedZoneForKeyBoard">
+
+        </Grid>
+    </StackPanel>
+
+
+
+
+
+</ContentDialog>

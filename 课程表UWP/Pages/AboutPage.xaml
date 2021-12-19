@@ -1,0 +1,68 @@
+﻿<Page x:Class="课程表UWP.Pages.AboutPage" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:课程表UWP.Pages" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+
+    <Grid>
+
+        <ScrollViewer>
+
+            <StackPanel>
+
+                <StackPanel Orientation="Vertical" Background="#FF16ABAB">
+
+                    <RelativePanel>
+                        <Ellipse Stroke="#FF1A15EA" MinHeight="300" MinWidth="300" RelativePanel.AlignHorizontalCenterWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+                            <Ellipse.Fill>
+                                <ImageBrush Stretch="Fill" ImageSource="ms-appx:///images/bg1.jpg" />
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+
+                    </RelativePanel>
+
+
+
+                </StackPanel>
+
+                <RelativePanel>
+                    <RelativePanel.Background>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Color="#FFF4F4F4" Offset="0" />
+                            <GradientStop Color="White" Offset="1" />
+                        </LinearGradientBrush>
+                    </RelativePanel.Background>
+                    <StackPanel HorizontalAlignment="Left" Padding="10" Orientation="Vertical" RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignVerticalCenterWithPanel="True">
+                        <TextBlock Text="初创:            枫叶" FontSize="20" Margin="10,0,10,0"  FontFamily="Microsoft YaHei" FontWeight="ExtraLight" />
+                        <TextBlock Text="主创:            ssz666" FontSize="20" Margin="10,10,10,0"  FontFamily="Microsoft YaHei" FontWeight="ExtraLight" />
+                        <TextBlock Text="界面设计:     林枫 和 ssz666" FontSize="20" Margin="10,10,10,0"  FontFamily="Microsoft YaHei" FontWeight="ExtraLight" />
+                        <TextBlock Text="意见反馈:     微软商店评价,邮箱657208360@qq.com等" FontSize="20" Margin="10,10,10,0"  FontFamily="Microsoft YaHei" FontWeight="ExtraLight" />
+
+                       
+
+
+                    </StackPanel>
+                </RelativePanel>
+
+                <StackPanel Background="White" Padding="10">
+                    
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40*"/>
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        
+                        <WebView VerticalAlignment="Top" Source="https://www.songshizhao.com/apps/uap.aspx" MinHeight="1000" Grid.RowSpan="2" />
+                        <Grid VerticalAlignment="Top" Margin="0 0 0 0" Grid.Row="0" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Width="1920" Height="60">
+                            <TextBlock VerticalAlignment="Center" FontSize="16" Padding="10">其他应用</TextBlock>
+                        </Grid>
+                    </Grid>
+                  
+
+
+                </StackPanel>
+
+            </StackPanel>
+        </ScrollViewer>
+
+
+
+    </Grid>
+</Page>

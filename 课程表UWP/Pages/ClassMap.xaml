@@ -1,0 +1,561 @@
+﻿<Page x:Class="课程表UWP.Pages.ClassMap" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:local="using:课程表UWP.Pages" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:maps="using:Windows.UI.Xaml.Controls.Maps" mc:Ignorable="d" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" FontFamily="Segoe UI">
+    <Page.Resources>
+        <local:DistanceConverter x:Key="DistanceConverter"></local:DistanceConverter>
+        <local:DateTimeConverter x:Key="DateTimeConverter"></local:DateTimeConverter>
+
+
+
+
+        <Style TargetType="ListViewItem" x:Key="MyListViewItemStyle">
+            <Setter Property="Background" Value="#666"></Setter>
+            <Setter Property="Foreground"  Value="White"></Setter>
+            <Setter Property="Margin" Value="0 3"></Setter>
+
+            <Setter Property="Template" >
+
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListViewItem">
+                    <ListViewItemPresenter x:Name="Root">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="Selected" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <!--<Setter Target="Root.(RevealBrush.State)" Value="PointerOver" />-->
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="PointerOverSelected">
+                                    <VisualState.Setters>
+                                        <!--<Setter Target="Root.(RevealBrush.State)" Value="PointerOver" />-->
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="PointerOverPressed">
+                                    <VisualState.Setters>
+                                        <!--<Setter Target="Root.(RevealBrush.State)" Value="Pressed" />-->
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <VisualState.Setters>
+                                        <!--<Setter Target="Root.(RevealBrush.State)" Value="Pressed" />-->
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="PressedSelected">
+                                    <VisualState.Setters>
+                                        <!--<Setter Target="Root.(RevealBrush.State)" Value="Pressed" />-->
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="DisabledStates">
+                                <VisualState x:Name="Enabled" />
+                                <VisualState x:Name="Disabled">
+                                    <VisualState.Setters>
+                                        <!--<Setter Target="Root.RevealBorderThickness" Value="0" />-->
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                    </ListViewItemPresenter>
+                </ControlTemplate>
+                </Setter.Value>
+            
+            </Setter>
+        </Style>
+     
+        
+        
+        
+        <!--<Storyboard x:Name="PinUp">
+            <DoubleAnimation Storyboard.TargetName="PinAnimation" Storyboard.TargetProperty="TranslateY" From="0" To="-0.2" Duration="0:0:0.5" AutoReverse="True">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="PinAnimation" Storyboard.TargetProperty="ScaleX" From="1" To="1.2" Duration="0:0:0.5" AutoReverse="True">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="PinAnimation" Storyboard.TargetProperty="ScaleY" From="1" To="1.2" Duration="0:0:0.5" AutoReverse="True">
+            </DoubleAnimation>
+        </Storyboard>
+        <Storyboard x:Name="PinDown">
+            <DoubleAnimation Storyboard.TargetName="PinAnimation" Storyboard.TargetProperty="TranslateY" From="-0.2" To="0" Duration="0:0:0.5">
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="PinAnimation" Storyboard.TargetProperty="ScaleX" From="1.2" To="1" Duration="0:0:0.5" >
+            </DoubleAnimation>
+            <DoubleAnimation Storyboard.TargetName="PinAnimation" Storyboard.TargetProperty="ScaleY" From="1.2" To="1" Duration="0:0:0.5">
+            </DoubleAnimation>
+        </Storyboard>-->
+
+    </Page.Resources>
+
+
+    <Pivot>
+        <Pivot.LeftHeader>
+            <FontIcon FontFamily="Segoe MDL2 Assets"  Glyph="&#xE77B;" Margin="10" Tapped="LoginClick" RenderTransformOrigin="0.5,0.5">
+                <FontIcon.RenderTransform>
+                    <CompositeTransform x:Name="ct01" Rotation="0" />
+                </FontIcon.RenderTransform>
+                <!--<FontIcon.Triggers>
+                    <EventTrigger RoutedEvent="FontIcon.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard RepeatBehavior="Forever">
+                                --><!--<ColorAnimation Storyboard.TargetName="UploadIcon" Storyboard.TargetProperty="Foreground" From="Green" To="IndianRed" Duration="0:0:2"></ColorAnimation>--><!--
+                                <DoubleAnimation Storyboard.TargetName="ct01" Storyboard.TargetProperty="Rotation" From="0" To="360" Duration="0:0:1"></DoubleAnimation>
+                            
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </FontIcon.Triggers>-->
+            </FontIcon>
+        </Pivot.LeftHeader>
+        <Pivot.RightHeader>
+            <StackPanel Orientation="Horizontal" Tapped="UploadClick">
+                <FontIcon  x:Name="UploadIcon" FontFamily="Segoe MDL2 Assets" Glyph="&#xE183;" Margin="10 0 0 0" Foreground="#FF0AE614" RenderTransformOrigin="0.5,0.5" VerticalAlignment="Center">
+                    <FontIcon.RenderTransform>
+                        <CompositeTransform x:Name="scale01" ScaleX="1" ScaleY="1" />
+                    </FontIcon.RenderTransform>
+                    <FontIcon.Projection>
+                        <PlaneProjection GlobalOffsetX="0" GlobalOffsetY="0" />
+                    </FontIcon.Projection>
+
+
+                    <FontIcon.Triggers>
+                        <EventTrigger RoutedEvent="TextBlock.Loaded">
+                            <BeginStoryboard>
+                                <Storyboard RepeatBehavior="Forever">
+                                    <!--<ColorAnimation Storyboard.TargetName="UploadIcon" Storyboard.TargetProperty="Foreground" From="Green" To="IndianRed" Duration="0:0:2"></ColorAnimation>-->
+                                    <DoubleAnimation Storyboard.TargetName="scale01" Storyboard.TargetProperty="ScaleX" From="1" To="1.3" Duration="0:0:1"></DoubleAnimation>
+                                    <DoubleAnimation Storyboard.TargetName="scale01" Storyboard.TargetProperty="ScaleY" From="1" To="1.3" Duration="0:0:1"></DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </FontIcon.Triggers>
+
+                </FontIcon>
+
+                <TextBlock Margin="0 0 10 0" Text="上传课表" VerticalAlignment="Center"></TextBlock>
+            </StackPanel>
+          
+
+
+        </Pivot.RightHeader>
+        <PivotItem>
+            <PivotItem.Header>
+                <TextBlock FontWeight="Light" FontSize="16">课表地图</TextBlock>
+            </PivotItem.Header>
+            <Grid Margin="0,0,0,0">
+                <maps:MapControl Name="myMap" IsTapEnabled="True" ZoomLevel="{x:Bind GS.ZoomSlider,Mode=TwoWay}" Heading="{x:Bind GS.Heading,Mode=TwoWay}" Background="White" MapServiceToken="AqqSn2f0PsNDtw6Xyuig~OmWOv2C8KxyzsTyZSqvf2Q~AqEiS0uu_kcIhxFMrPAcTxnEQIFaDvjb9YqX-x0CXj2mr_HOWzmlSVTkM3O8RjKs" Style="{x:Bind GS.MyMapStyle,Mode=TwoWay}" MapProjection="{x:Bind GS.MyMapProjection,Mode=TwoWay}" TrafficFlowVisible="{x:Bind GS.TrafficFlowVisible,Mode=TwoWay}" DesiredPitch="{x:Bind GS.DesiredPitch,Mode=TwoWay}" FontFamily="Segoe UI">
+                    <maps:MapItemsControl x:Name="MapItems" ItemsSource="{x:Bind MapItemsSource,Mode=OneWay}">
+                        
+                        <maps:MapItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="local:PointOfInformation">
+                                <StackPanel Width="203" Height="65" Orientation="Horizontal" maps:MapControl.Location="{x:Bind Location}" maps:MapControl.NormalizedAnchorPoint="{x:Bind NormalizedAnchorPoint}">
+                                    <StackPanel.Background>
+                                        <ImageBrush ImageSource="ms-appx:///images/pbg.png" />
+                                    </StackPanel.Background>
+
+
+
+
+                                    <Border CornerRadius="20" Margin="10 10 5 5" VerticalAlignment="Top" Width="40" Height="40" RenderTransformOrigin="0.5,0.5">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{x:Bind ImageSource}" />
+                                        </Border.Background>
+                                    </Border>
+
+
+
+                                    <StackPanel Orientation="Vertical" Width="133" Height="65">
+
+                                        <TextBlock Margin="0 5" FontSize="15" VerticalAlignment="Center" Text="{x:Bind ClassName}" Foreground="Black"  HorizontalAlignment="Left" >一个课程表示例</TextBlock>
+                                        <StackPanel Orientation="Horizontal">
+
+
+                                            <TextBlock   Text="{x:Bind UserName}" Foreground="Gray"  HorizontalAlignment="Left">一个课程表示例</TextBlock>
+
+                                            <!--下载-->
+                                            <Button HorizontalAlignment="Right" VerticalAlignment="Center"  Click="PointButton_Click" Style="{StaticResource TextBlockButtonStyle}">
+                                                <Button.Content>
+                                                    <StackPanel>
+                                                        <TextBlock  Text="下载" ></TextBlock>
+                                                    </StackPanel>
+                                                </Button.Content>
+                                            </Button>
+                                        </StackPanel>
+                                    </StackPanel>
+
+
+                              
+
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </maps:MapItemsControl.ItemTemplate>
+
+                        <!--<maps:MapIcon x:Name="mapIcon" Title="我的位置">
+         
+                    </maps:MapIcon>-->
+                    </maps:MapItemsControl>
+
+
+                </maps:MapControl>
+
+                <Grid Padding="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" >
+                    <Button Margin="0 0 20 60" Style="{StaticResource TextBlockButtonStyle}" Click="MyPositionButton_Click">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon FontSize="21" Margin="0 0 10 0" FontFamily="Segoe MDL2 Assets" Glyph="&#xE1D2;" />
+                                <TextBlock>我的位置</TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                  
+                    <ProgressRing IsActive="{x:Bind Isbusy,Mode=OneWay}">
+
+                    </ProgressRing>
+                </Grid>
+                <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom"  Orientation="Horizontal">
+                    <TextBlock Text="经度:"></TextBlock>
+                    <TextBlock HorizontalAlignment="Left" Text="{x:Bind Latitude,Mode=OneWay}">100</TextBlock>
+                    <TextBlock Text="  纬度:"></TextBlock>
+                    <TextBlock Text="{x:Bind Longitude,Mode=OneWay}">100</TextBlock>
+
+                </StackPanel>
+            </Grid>
+        </PivotItem>
+
+        <PivotItem>
+            <PivotItem.Header>
+                <TextBlock FontWeight="Light" FontSize="16">附近列表</TextBlock>
+            </PivotItem.Header>
+
+            <Grid>
+
+                <ScrollViewer ViewChanged="ScrollViewer_ViewChanged">
+                    <ListView ItemsSource="{x:Bind MapItemsSource,Mode=OneWay}" ItemContainerStyle="{StaticResource MyListViewItemStyle}" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+
+
+                        <ListView.Header>
+                            <Grid BorderBrush="Black" BorderThickness="0 0 0 1">
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+
+                                    <TextBlock x:Name="MyAddressTextBlock" Foreground="Black">xx省  xx市  xx区</TextBlock>
+                                    <!--<TextBlock Text="{x:Bind Address.province,Mode=OneWay}" Foreground="Black">XX省份</TextBlock>
+                                    <TextBlock Text="{x:Bind Address.city,Mode=OneWay}" Foreground="Black">X城市</TextBlock>
+                                    <TextBlock Text="{x:Bind Address.district,Mode=OneWay}" Foreground="Black">XXX区</TextBlock>-->
+                                </StackPanel>
+                                
+                                
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8CB;" Foreground="Gray" />
+                                    <Button Style="{StaticResource TextBlockButtonStyle}" Content="按距离排序" Click="RankByDistance_Click"></Button>
+                                    <Button Style="{StaticResource TextBlockButtonStyle}" Content="按时间排序" Click="RankByTime_Click"></Button>
+                                    <Button Style="{StaticResource TextBlockButtonStyle}" Content="按下载量排序" Click="RankByDownload_Click"></Button>
+                                </StackPanel>
+
+
+                            </Grid>
+                        </ListView.Header>
+
+                        <ListViewItem >
+                            
+                        </ListViewItem>
+
+
+
+
+                        <ListView.ItemTemplate>
+
+                            <DataTemplate x:DataType="local:PointOfInformation">
+                                <Grid MinWidth="450" Padding="10 10">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="20" />
+
+                                    </Grid.RowDefinitions>
+
+
+                                    <TextBlock FontWeight="Light" Grid.Row="0" FontSize="22" Text="{x:Bind ClassName}">XXXX大学第X学年XXXX班课程表</TextBlock>
+
+
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Left">
+                                        <!--<TextBlock FontSize="10" VerticalAlignment="Center" Text="下载次数"></TextBlock>-->
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE118;" FontSize="15" Margin="0 0 3 0" ToolTipService.ToolTip="下载次数" />
+
+                                        <TextBlock Text="{x:Bind statis}" FontSize="15">1000</TextBlock>
+
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE81B;" FontSize="15" Margin="20 0 3 0" ToolTipService.ToolTip="距离" />
+                                        <TextBlock FontSize="15" Text="距离"></TextBlock>
+                                        <TextBlock Text="{x:Bind Distance,Converter={StaticResource DistanceConverter}}" FontSize="15" ToolTipService.ToolTip="距离">2km</TextBlock>
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE13D;" VerticalAlignment="Center" FontSize="15" Margin="20 0 3 0" />
+                                        <!--<TextBlock Text="上传用户:" FontSize="10" VerticalAlignment="Center"></TextBlock>-->
+                                        <TextBlock Text="{x:Bind UserName}" FontSize="15">王下第一七武海</TextBlock>
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE823;" FontSize="15" Margin="20 0 3 0" />
+                                        <!--<TextBlock Text="上传时间:" FontSize="10" VerticalAlignment="Center"></TextBlock>-->
+                                        <TextBlock Text="{x:Bind CreateTime,Converter={StaticResource DateTimeConverter}}" FontSize="15" Grid.Row="1">2018年11月12日</TextBlock>
+
+                                    </StackPanel>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+
+
+
+                        <ListView.Footer>
+
+
+                            <Grid Height="30">
+                                <ProgressRing IsActive="{x:Bind Isbusy,Mode=OneWay}" Height="30" Width="30" FontFamily="Segoe UI"></ProgressRing>
+
+
+                                <Button HorizontalAlignment="Left" x:Name="NextPageButton" Style="{StaticResource TextBlockButtonStyle}">更多</Button>
+
+                            </Grid>
+
+
+                        </ListView.Footer>
+
+                    </ListView>
+                </ScrollViewer>
+
+
+
+            </Grid>
+        </PivotItem>
+
+
+        <PivotItem>
+            <PivotItem.Header>
+                <TextBlock FontWeight="Light" FontSize="16">全部列表</TextBlock>
+            </PivotItem.Header>
+
+            <Grid>
+
+                <ScrollViewer ViewChanged="ScrollViewer_ViewChanged">
+                    <ListView ItemsSource="{x:Bind MapItemsSource,Mode=OneWay}" ItemContainerStyle="{StaticResource MyListViewItemStyle}" IsItemClickEnabled="True" ItemClick="ListView_ItemClick">
+
+
+                        <ListView.Header>
+                            <Grid BorderBrush="Black" BorderThickness="0 0 0 1">
+
+
+
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE8CB;" Foreground="Gray" />
+                                    <Button Style="{StaticResource TextBlockButtonStyle}" Content="按距离排序" Click="RankByDistance_Click"></Button>
+                                    <Button Style="{StaticResource TextBlockButtonStyle}" Content="按时间排序" Click="RankByTime_Click"></Button>
+                                    <Button Style="{StaticResource TextBlockButtonStyle}" Content="按下载量排序" Click="RankByDownload_Click"></Button>
+                                </StackPanel>
+
+
+                            </Grid>
+                        </ListView.Header>
+
+                        <ListViewItem>
+
+                        </ListViewItem>
+
+
+
+
+                        <ListView.ItemTemplate>
+
+                            <DataTemplate x:DataType="local:PointOfInformation">
+                                <Grid MinWidth="450" Padding="10 10">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="40" />
+                                        <RowDefinition Height="20" />
+
+                                    </Grid.RowDefinitions>
+
+
+                                    <TextBlock FontWeight="Light" Grid.Row="0" FontSize="22" Text="{x:Bind ClassName}">XXXX大学第X学年XXXX班课程表</TextBlock>
+
+
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Left">
+                                        <!--<TextBlock FontSize="10" VerticalAlignment="Center" Text="下载次数"></TextBlock>-->
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE118;" FontSize="15" Margin="0 0 3 0" ToolTipService.ToolTip="下载次数" />
+
+                                        <TextBlock Text="{x:Bind statis}" FontSize="15">1000</TextBlock>
+
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE81B;" FontSize="15" Margin="20 0 3 0" ToolTipService.ToolTip="距离" />
+                                        <TextBlock FontSize="15" Text="距离"></TextBlock>
+                                        <TextBlock Text="{x:Bind Distance,Converter={StaticResource DistanceConverter}}" FontSize="15" ToolTipService.ToolTip="距离">2km</TextBlock>
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE13D;" VerticalAlignment="Center" FontSize="15" Margin="20 0 3 0" />
+                                        <!--<TextBlock Text="上传用户:" FontSize="10" VerticalAlignment="Center"></TextBlock>-->
+                                        <TextBlock Text="{x:Bind UserName}" FontSize="15">王下第一七武海</TextBlock>
+                                        <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE823;" FontSize="15" Margin="20 0 3 0" />
+                                        <!--<TextBlock Text="上传时间:" FontSize="10" VerticalAlignment="Center"></TextBlock>-->
+                                        <TextBlock Text="{x:Bind CreateTime,Converter={StaticResource DateTimeConverter}}" FontSize="15" Grid.Row="1">2018年11月12日</TextBlock>
+
+                                    </StackPanel>
+
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+
+
+
+
+                        <ListView.Footer>
+
+
+                            <Grid Height="30">
+                                <ProgressRing IsActive="{x:Bind Isbusy,Mode=OneWay}" Height="30" Width="30" FontFamily="Segoe UI"></ProgressRing>
+
+
+                                <Button HorizontalAlignment="Left" x:Name="NextPageButton2" Style="{StaticResource TextBlockButtonStyle}">更多</Button>
+
+                            </Grid>
+
+
+                        </ListView.Footer>
+
+                    </ListView>
+                </ScrollViewer>
+
+
+
+            </Grid>
+        </PivotItem>
+    </Pivot>
+
+
+
+
+
+
+
+
+
+    <!--全屏的地图-->
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--<StackPanel MaxWidth="280">
+                <Grid>
+                    <Button HorizontalAlignment="Center" VerticalAlignment="Top" Click="PointButton_Click" Background="Black">
+                        <Button.Content>
+                            <StackPanel MaxWidth="280">
+                                <TextBlock VerticalAlignment="Center" Text="{x:Bind ClassName}" Foreground="Azure" HorizontalAlignment="Center">一个课程表示例</TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+
+                    <Ellipse Width="24" Height="24" RenderTransformOrigin="0.5,0.5" Margin="0 10 0 0">
+                        <Ellipse.Fill>
+                            <ImageBrush ImageSource="{x:Bind ImageSource}" Stretch="Uniform" />
+                        </Ellipse.Fill>
+                    </Ellipse>
+
+                    <Image Margin="0 30 0 0" Source="ms-appx:///Assets/mappin.png" Width="50" Height="50" RenderTransformOrigin="0.5,0.5" maps:MapControl.NormalizedAnchorPoint="{x:Bind NormalizedAnchorPoint}" maps:MapControl.Location="{x:Bind Location}">
+
+                    </Image>
+
+
+
+                    -->
+    <!--<Image Source="{Binding ImageSourceUri}" maps:MapControl.NormalizedAnchorPoint="{Binding NormalizedAnchorPoint}" maps:MapControl.Location="{Binding Location}">
+                                        <Image.Transitions>
+                                            <TransitionCollection>
+                                                <EntranceThemeTransition />
+                                            </TransitionCollection>
+                                        </Image.Transitions>
+                                    </Image>-->
+    <!--
+                </Grid>
+
+            </StackPanel>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--中间的指针-->
+    <!--<StackPanel x:Name="MapPinOnCenter" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image x:Name="MapPinImage" Source="ms-appx:///Assets/mappin.png" Width="50" Height="50" RenderTransformOrigin="0.5,0.5">
+                    <Image.RenderTransform>
+                        <CompositeTransform x:Name="PinAnimation" TranslateY="0" ScaleX="1" ScaleY="1" />
+                    </Image.RenderTransform>
+                    <Image.Triggers>
+                        <EventTrigger RoutedEvent="Image.Loaded">
+                            <BeginStoryboard x:Name="bs_pin">
+                                <Storyboard x:Name="sb_pin">
+                                    <DoubleAnimation Storyboard.TargetName="PinAnimation" Storyboard.TargetProperty="TranslateY" From="0" To="-0.2" Duration="0:0:0.5" AutoReverse="True">
+                                    </DoubleAnimation>
+                                    <DoubleAnimation Storyboard.TargetName="PinAnimation" Storyboard.TargetProperty="ScaleX" From="1" To="1.2" Duration="0:0:0.5" AutoReverse="True">
+                                    </DoubleAnimation>
+                                    <DoubleAnimation Storyboard.TargetName="PinAnimation" Storyboard.TargetProperty="ScaleY" From="1" To="1.2" Duration="0:0:0.5" AutoReverse="True">
+                                    </DoubleAnimation>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </Image.Triggers>
+                    <Image.Resources>
+
+                        -->
+    <!--<EventTrigger x:Name="et_pin" RoutedEvent="Load">
+                        
+                        </EventTrigger>-->
+    <!--
+
+
+                    </Image.Resources>
+                </Image>
+
+            </StackPanel>-->
+
+
+    <!--UI层-->
+    <!--<RelativePanel>
+
+
+            <Grid RelativePanel.AlignLeftWithPanel="True" RelativePanel.AlignTopWithPanel="True" Background="Black">
+                <StackPanel>
+                    <Button Style="{StaticResource TextBlockButtonStyle}" Click="LoginClick">
+                        <Button.Content>
+                            <StackPanel Orientation="Vertical">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE77B;" />
+                                <TextBlock>登录</TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <Button Style="{StaticResource TextBlockButtonStyle}" Click="UploadClick">
+                        <Button.Content>
+                            <StackPanel Orientation="Vertical">
+                                <FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE77B;" />
+                                <TextBlock>上传</TextBlock>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+
+      
+
+        </RelativePanel>
+
+
+
+    </Grid>-->
+</Page>
